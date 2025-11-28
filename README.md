@@ -62,7 +62,8 @@ RegisterNumber:  25012933
 ```
 
 ## Output:
-![simple linear regression model for predicting the marks scored](sam.png)
+<img width="1214" height="714" alt="image" src="https://github.com/user-attachments/assets/fa95b66d-3515-4356-b8e4-bd7e059223dd" />
+
 
 
 ## Result:
