@@ -16,46 +16,41 @@ To write a program to predict the marks scored by a student using the simple lin
 ## Program:
 ```
 /*
-import pandas as pd
 import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
-from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
-from sklearn.metrics import mean_absolute_error, mean_squared_error
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error, r2_score
+data = {
+    'Hours_Studied': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    'Marks_Scored':  [35, 40, 50, 55, 60, 65, 70, 75, 80, 85]
+}
 
-
-df = pd.read_csv("student_scores.csv")
-
-X = df[['Hours']]
-Y = df['Scores']
-
-
-X_train, X_test, Y_train, Y_test = train_test_split(
-    X, Y, test_size=0.2, random_state=42)
-
+df = pd.DataFrame(data)
+print("Dataset:")
+print(df)
+X = df[['Hours_Studied']]   # Feature (2D)
+y = df['Marks_Scored']      # Target (1D)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 model = LinearRegression()
-model.fit(X_train, Y_train)
-
-Y_pred = model.predict(X_test)
-print("Predicted Values:\n", Y_pred)
-
-plt.scatter(X_test, Y_test, color='green', label="Test Data")
-plt.plot(X_train, y_pred, color='red', label="Line of Best Fit")
-plt.xlabel("Hours Studied")
-plt.ylabel("Marks Scored")
-plt.title(Simple Linear Regression")
+model.fit(X_train, y_train)
+y_pred = model.predict(X_test)
+print("\nModel Evaluation:")
+print("Slope (m):", model.coef_[0])
+print("Intercept (c):", model.intercept_)
+print("Mean Squared Error:", mean_squared_error(y_test, y_pred))
+print("R² Score:", r2_score(y_test, y_pred))
+plt.scatter(X, y, color='blue', label='Actual Data')
+plt.plot(X, model.predict(X), color='red', label='Regression Line')
+plt.xlabel('Hours Studied')
+plt.ylabel('Marks Scored')
+plt.title('Simple Linear Regression: Hours vs Marks')
 plt.legend()
 plt.show()
-
-
-mae = mean_absolute_error(Y_test, Y_pred)
-mse = mean_squared_error(Y_test, Y_pred)
-rmse = np.sqrt(mse)
-
-print("Mean Absolute Error (MAE):", mae)
-print("Mean Squared Error (MSE):", mse)
-print("Root Mean Squared Error (RMSE):", rmse)
-Program to implement the simple linear regression model for predicting the marks scored.
+hours = float(input("\nEnter number of study hours: "))
+predicted_marks = model.predict([[hours]])
+print(f"Predicted Marks for studying {hours} hours = {predicted_marks[0]:.2f}")
 Developed by: Jesron Shawn C J 
 RegisterNumber:  25012933
 */
